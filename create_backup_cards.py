@@ -5,9 +5,20 @@ import qrcode
 import string
 
 
-wallet_name = input("Enter the name you want to use for this setup: ")
+wallet_name = input("Enter wallet name (leave blank to use default -> 'Multisig Backup'): ")
+if wallet_name == "":
+    wallet_name = "Multisig Backup"
 
-descriptor = input("Paste the 2/3 multisig wallet descriptor from Sparrow Wallet: ")
+descriptor = ""
+while descriptor == "":
+    descriptor = input("Paste the 2/3 multisig wallet descriptor from Sparrow Wallet: ")
+
+
+qr_density = input("Entire desired qr code density as an integer ('21'=S-21x21, '25'=M-25x25, '29'=L-29x29). Leave blank to use default (M): ")
+if qr_density == "":
+    qr_density = 25
+else:
+    qr_density = int(qr_density)
 
 def create_card_template(c, width = 3.5*inch, height = 2.5*inch):
     
@@ -231,7 +242,7 @@ for i in range(num_keys):
     qr_x_loc = width - border_width - object_padding - qr_size
     qr_y_loc = -height + border_width + 2*object_padding + text_box_height
 
-    draw_qr_code_template(c, qr_size, qr_x_loc, qr_y_loc)
+    draw_qr_code_template(c, qr_size, qr_x_loc, qr_y_loc, qr_density)
 
     
     c.setLineWidth(1)
