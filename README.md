@@ -6,7 +6,7 @@ A quick program in Python to create a nice printable backup for a bitcoin multis
 2. Open up a terminal in that new folder.
 3. Git clone this repository.
 ```
-git clone <link to this repository>
+git clone https://github.com/EverydayBitcoiner/multisig-backup.git
 ```
 5. Create a virtual environment.
 ```
