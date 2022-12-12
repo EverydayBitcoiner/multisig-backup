@@ -29,6 +29,9 @@ pip install -r requirements.txt
 python create_backup_cards.py
 ```
 9. Input desired multisig wallet name, wallet descriptor, and qr density as prompted.
+Note: Be sure to get the full wallet descriptor from sparrow by clicking the edit button shown on the far right in the image below, this will bring up a pop-up box with the full text of the descriptor which can then be copied and pasted into the command line:
+![image](https://user-images.githubusercontent.com/119913286/207154432-4c0313fd-1fb1-472d-a196-fa9c09206175.png)
+
 10. Print out the resulting pdf file that will be located in the same folder.
 11. Add seed phrase by hand after printing out.
 12. Store each care safely and securely, you will need at least 2 of the cards to access/recover your wallet.
