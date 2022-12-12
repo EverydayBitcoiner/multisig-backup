@@ -176,16 +176,15 @@ def draw_qr_code_template(c, size, loc_x = 0, loc_y = 0, num_cols_rows = 25):
     c.translate(-loc_x-row_label_width, -loc_y)
     return
 
-qr_descriptor = qrcode.make(descriptor)
-qr_descriptor.save('qrcodes/qr_descriptor.png')
-
+# Split out each key info for descriptor
 descriptor = descriptor.split(',')
 
 key_info_1 = descriptor[1]
 key_info_2 = descriptor[2]
-key_info_3 = descriptor[3]
+key_info_3 = descriptor[3].split(')')[0]
 
 
+# Split out information for each key
 fingerprint1= key_info_1.split(']')[0][1:9]
 xpub1 = key_info_1.split(']')[1].split('/')[0]
 derivation1 = 'm/'+key_info_1.split(']')[0][10:].replace('h','\' ')
@@ -204,6 +203,7 @@ derivation3 = 'm/'+key_info_3.split(']')[0][10:].replace('h','\' ')
 key_info_3_qrcode = qrcode.make(key_info_3)
 key_info_3_qrcode.save("qrcodes/key_info_3_qrcode.png")
 
+# Make a dictionary to loop through later
 wallet_description = {"key1":
                             {'key_number':1,
                              'fp': fingerprint1,
@@ -223,6 +223,7 @@ wallet_description = {"key1":
                              'derivation': derivation3,
                              'qr_code': 'qrcodes/key_info_3_qrcode.png'}}
 
+# Create pdf canvas and set starting point
 c = canvas.Canvas(wallet_name.replace(" ","_")+"_multi_sig_backup.pdf", pagesize = letter)
 c.translate(0.5*inch, 10.5*inch)
 
@@ -299,7 +300,7 @@ for i in range(num_keys):
 
 
 
-
+# Start new page and set starting point
 c.showPage()
 c.translate(4.5*inch, 10.5*inch)
 
