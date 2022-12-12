@@ -36,3 +36,5 @@ Note: Be sure to get the full wallet descriptor from sparrow by clicking the edi
 11. Add seed phrase by hand after printing out.
 12. Store each care safely and securely, you will need at least 2 of the cards to access/recover your wallet.
 
+Here is an example output:
+[Multisig_Backup_multi_sig_backup.pdf](https://github.com/EverydayBitcoiner/multisig-backup/files/10212925/Multisig_Backup_multi_sig_backup.pdf)
