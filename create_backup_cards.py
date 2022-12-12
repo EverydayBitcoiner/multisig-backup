@@ -20,7 +20,7 @@ if qr_density == "":
 else:
     qr_density = int(qr_density)
 
-def create_card_template(c, width = 3.5*inch, height = 2.5*inch):
+def create_card_template(c, width = 3.5*inch, height = 2.5*inch, border_color='#941bf7'):
     
     # calculate border_width
     border_width = .05*height
@@ -36,8 +36,8 @@ def create_card_template(c, width = 3.5*inch, height = 2.5*inch):
     c.rect(0, 0, width, -height, fill=1)
 
     # create border
-    c.setFillColor('#941bf7')
-    c.setStrokeColor('#941bf7')
+    c.setFillColor(border_color)
+    c.setStrokeColor(border_color)
     c.roundRect(border_width/2,-(top_border_width-border_width/2),width-border_width,-(height-top_border_width), radius=border_width*1.3, fill=1)
     
     c.setFillColor('white')
@@ -188,19 +188,22 @@ key_info_3 = descriptor[3].split(')')[0]
 fingerprint1= key_info_1.split(']')[0][1:9]
 xpub1 = key_info_1.split(']')[1].split('/')[0]
 derivation1 = 'm/'+key_info_1.split(']')[0][10:].replace('h','\' ')
-key_info_1_qrcode = qrcode.make(key_info_1)
+qrcode_string_1 = "["+fingerprint1+"/"+key_info_1.split(']')[0][10:].replace('h','\'')+"]"+xpub1
+key_info_1_qrcode = qrcode.make(qrcode_string_1)
 key_info_1_qrcode.save("qrcodes/key_info_1_qrcode.png")
 
 fingerprint2= key_info_2.split(']')[0][1:9]
 xpub2 = key_info_2.split(']')[1].split('/')[0]
 derivation2 = 'm/'+key_info_2.split(']')[0][10:].replace('h','\' ')
-key_info_2_qrcode = qrcode.make(key_info_2)
+qrcode_string_2 = "["+fingerprint2+"/"+key_info_2.split(']')[0][10:].replace('h','\'')+"]"+xpub2
+key_info_2_qrcode = qrcode.make(qrcode_string_2)
 key_info_2_qrcode.save("qrcodes/key_info_2_qrcode.png")
 
 fingerprint3= key_info_3.split(']')[0][1:9]
 xpub3 = key_info_3.split(']')[1].split('/')[0]
 derivation3 = 'm/'+key_info_3.split(']')[0][10:].replace('h','\' ')
-key_info_3_qrcode = qrcode.make(key_info_3)
+qrcode_string_3 = "["+fingerprint3+"/"+key_info_3.split(']')[0][10:].replace('h','\'')+"]"+xpub3
+key_info_3_qrcode = qrcode.make(qrcode_string_3)
 key_info_3_qrcode.save("qrcodes/key_info_3_qrcode.png")
 
 # Make a dictionary to loop through later
@@ -232,7 +235,7 @@ num_keys = 3
 for i in range(num_keys):
 
     # create template and grab dimensions
-    height, width, top_border_width, border_width = create_card_template(c)
+    height, width, top_border_width, border_width = create_card_template(c, border_color='#cc0000')
     top_padding = border_width
     object_padding = .5*border_width
     text_box_height = 1.1*border_width
@@ -312,7 +315,7 @@ for key in wallet_description:
         c.translate(0,+2*2.75*inch)
 
 
-    height, width, top_border_width, border_width = create_card_template(c)
+    height, width, top_border_width, border_width = create_card_template(c, border_color="#00aa00")
 
     
 

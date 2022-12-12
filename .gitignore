@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# pdf files
+.pdf
+
+# generated qr codes
+qrcodes/
