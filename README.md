@@ -16,6 +16,10 @@ virtualenv multisig-backup-venv
 ```
 source multisig-backup-venv/bin/activate
 ```
+8. Navigate into the repo folder.
+```
+cd multisig-backup
+```
 9. Install required dependencies.
 ```
 pip install -r requirements.txt
