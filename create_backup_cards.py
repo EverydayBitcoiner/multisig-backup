@@ -4,7 +4,6 @@ from reportlab.lib.units import inch
 import qrcode
 import string
 
-
 def create_card_template(c, width = 3.5*inch, height = 2.5*inch):
     # calculate border_width
     border_width = .05*height
@@ -159,19 +158,16 @@ def draw_qr_code_template(c, size, loc_x = 0, loc_y = 0, num_cols_rows = 25):
 
 
 def main():
-
     wallet_name = input("Enter wallet name (leave blank to use default -> 'Multisig Backup'): ")
     if wallet_name == "":
         wallet_name = "Multisig Backup"
 
     descriptor = ""
     while descriptor == "":
-        descriptor = input("Paste the 2/3 multisig wallet descriptor from Sparrow Wallet: ")
+        descriptor = input("Paste the multisig wallet descriptor from Sparrow Wallet: ")
 
     qr_density = input("Entire desired qr code density as an integer ('21'=S-21x21, '25'=M-25x25, '29'=L-29x29). Leave blank to use default (M): ")
-    if qr_density == "":
-        qr_density = 25
-    else:
+    if qr_density != "":
         qr_density = int(qr_density)
 
     descriptor = descriptor.split(',')
@@ -199,8 +195,12 @@ def main():
     c = canvas.Canvas(wallet_name.replace(" ","_")+"_multi_sig_backup.pdf", pagesize = letter)
     c.translate(0.5*inch, 10.5*inch)
 
-    # for i in range(num_keys):
     for i, key in enumerate(key_info):
+
+        # Create a new page and translate to the top
+        if i % 3 == 0 and i != 0:
+            c.showPage()
+            c.translate(0.5*inch, 10.5*inch)
 
         # create template and grab dimensions
         height, width, top_border_width, border_width = create_card_template(c)
@@ -258,28 +258,18 @@ def main():
         secret_words_font_size = font_size*1.15
         to.setFont('Helvetica',secret_words_font_size)
         to.setFillColor('black')
-        for i in range(12):
-            if i < 9:
-                to.textLine(text=str(i+1)+":________________")
+        for n in range(12):
+            if n < 9:
+                to.textLine(text=str(n+1)+":________________")
             else:
-                to.textLine(text=str(i+1)+":_______________")
+                to.textLine(text=str(n+1)+":_______________")
 
         c.drawText(to)
 
-        c.translate(0,-2.75*inch)
+        # shift to the right for the next card
+        c.translate(4*inch, 0)
 
 
-    # Start new page and set starting point
-    c.showPage()
-    c.translate(4.5*inch, 10.5*inch)
-
-    for i, key in enumerate(key_info):
-
-        # if not the last key...
-        if i != len(key_info):
-            c.translate(0,-2.75*inch)
-        else:
-            c.translate(0,+2*2.75*inch)
 
         height, width, top_border_width, border_width = create_card_template(c)
 
@@ -321,6 +311,8 @@ def main():
         c.setFont('Helvetica',font_size)
         c.roundRect(fp_x_loc, fp_y_loc, qr_size, text_box_height, radius=text_box_height/2)
         c.drawCentredString(fp_x_loc+(qr_size)/2, fp_y_loc + text_box_height/4.5, key['derivation'])
+
+        c.translate(-4.0*inch,-2.75*inch)
 
     c.save()
 
