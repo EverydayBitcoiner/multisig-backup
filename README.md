@@ -1,5 +1,5 @@
 # Bitcoin Multisig-Backup
-A quick program in Python to create a nice printable backup for a bitcoin multisig backup.
+A quick program in Python to create a nice printable backup for a bitcoin 2/3 multisig wallet.
 
 ## Instructions for use on Linux
 1. Make a new folder on your computer.
