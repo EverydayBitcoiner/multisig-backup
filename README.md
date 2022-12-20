@@ -1,6 +1,8 @@
 # Bitcoin Multisig-Backup
 A quick program in Python to create a nice printable backup for a bitcoin 2/3 multisig wallet.
 
+**NOTE:** This backup scheme precludes using PSBTs at each location without a seperately accessible wallet descriptor backup because you will need 2 cards (in the case of 2 of 3) in order to regenerate the descriptor. 
+
 ## Instructions for use on Linux
 1. Make a new folder on your computer.
 2. Open up a terminal in that new folder.
